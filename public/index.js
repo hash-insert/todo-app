@@ -72,13 +72,13 @@ function createTaskElement(data) {
         cb.type = "checkbox";
         cb.name = "todo";
         cb.id = "todo_" + item.id;
-        
+        cb.checked = item.completed;
 
         //
         cb.addEventListener('change',(e)=> {
-  console.log(e)
-  item.completed=e.target.checked
-  fetchUpdateTask(item)
+            console.log(e)
+            item.completed=e.target.checked
+            fetchUpdateTask(item)
         })
 
         const removeBtn = document.createElement('button');
