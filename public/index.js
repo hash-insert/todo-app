@@ -48,6 +48,16 @@ function fetchDeleteData(item) {
         )
 }
 
+function fetchUpdateTask(item){
+fetch('http://localhost:3000/tasks',{
+    method:'PUT',
+    headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(item)
+         })
+        .then(res => res.json()
+            .then(data => console.log(data))
+        )
+}
 
 function createTaskElement(data) {
     // Clear the list 
@@ -62,7 +72,14 @@ function createTaskElement(data) {
         cb.type = "checkbox";
         cb.name = "todo";
         cb.id = "todo_" + item.id;
+        
 
+        //
+        cb.addEventListener('change',(e)=> {
+  console.log(e)
+  item.completed=e.target.checked
+  fetchUpdateTask(item)
+        })
 
         const removeBtn = document.createElement('button');
         removeBtn.innerHTML = "remove"
@@ -70,6 +87,7 @@ function createTaskElement(data) {
 
         removeBtn.addEventListener('click', () => {
             fetchDeleteData(item);
+            fetchData()
         });
 
         // li.innerText = item.task;

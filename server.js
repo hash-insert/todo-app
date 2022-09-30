@@ -1,13 +1,15 @@
 const express = require("express");
 
 const app = express();
-app.use(express.static(__dirname + '/public'))
-app.use(express.urlencoded({extended:true}));
+
+app.use(express.static(__dirname + '/public'));
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
 const data = {
-    "tasks":[
-        {id:1, task:"buy stocks", completed:false}
+    "tasks": [
+        { id: 1, task: "buy stocks", completed: false }
     ]
     // ,
     // "completed-tasks":[
@@ -21,27 +23,38 @@ const data = {
 
 // Create RESTful APIs
 // GET 
-app.get('/tasks',(req,res) =>{
+app.get('/tasks', (req, res) => {
     res.send(data["tasks"])
 })
 
 // POST 
-app.post('/tasks', (req,res) => {
+app.post('/tasks', (req, res) => {
     console.log("posting", req.body)
-    const {task } = req.body;
-    const newTask = {id:data["tasks"].length + 1 ,task, completed:false}
+    const { task } = req.body;
+    const newTask = { id: data["tasks"].length + 1, task, completed: false }
     data["tasks"].push(newTask)
-    res.send({"status":"ok"})
+    res.send({ "status": "ok" })
 })
 
+// PUT - Updates or toggles the completed flag
+app.put('/tasks', (req, res) => {
+    console.log(req.body)
+    const checkTask = data.tasks.find(item => item.id === req.body.id)
+    if (!checkTask) return res.status(404).send("Task not found");
+
+    checkTask.completed = req.body.completed
+    res.send(checkTask);
+})
+// Code here
+
 // DELETE 
-app.delete('/tasks',(req,res) => {
-    console.log("removing",req.body)
+app.delete('/tasks', (req, res) => {
+    console.log("removing", req.body)
     const task = data.tasks.find(item => item.id === req.body.id)
     if (!task) return res.status(404).send("Task not found");
 
     const index = data.tasks.indexOf(task);
-    data.tasks.splice(index,1);
+    data.tasks.splice(index, 1);
 
     res.send(data.tasks)
 })
