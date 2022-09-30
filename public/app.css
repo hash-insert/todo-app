@@ -1,0 +1,62 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    margin: 0 100px;
+    background-color: #f6f6f2;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.add-form{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 100%;
+}
+
+.task-inp{
+    width: 100%;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.task-list{
+    padding: 1rem;
+    width:100%;
+}
+
+.task-list-item{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    background-color: #BAdfe7;
+    padding: 5px;
+    margin: 5px;
+    flex: 0 1 auto;
+    font-size: large;
+}
+
+.rm-btn{
+    padding: 3px;
+    background-color: darkred;
+    color: white;
+}
+
+h2{
+    color: blueviolet;
+}
