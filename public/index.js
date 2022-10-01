@@ -1,11 +1,10 @@
-console.log("client js")
 const input = document.getElementById('input')
 const btn = document.getElementById('btn')
 const taskList = document.getElementById('tasks');
 
 // Fetch Tasks
 function fetchData() {
-    fetch('http://localhost:3000/tasks').then(
+    fetch('/tasks').then(
         res => res.json()
     ).then(
         data => {
@@ -23,7 +22,7 @@ fetchData()
 function fetchAddData() {
     const task = input.value;
 
-    fetch('http://localhost:3000/tasks', {
+    fetch('/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ task })
@@ -35,10 +34,7 @@ function fetchAddData() {
 
 // Delete Task
 function fetchDeleteData(item) {
-
-    console.log("delete ", item)
-
-    fetch('http://localhost:3000/tasks', {
+    fetch('/tasks', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(item)
@@ -48,12 +44,13 @@ function fetchDeleteData(item) {
         )
 }
 
-function fetchUpdateTask(item){
-fetch('http://localhost:3000/tasks',{
-    method:'PUT',
-    headers: { 'Content-Type': 'application/json' },
+// Update Task
+function fetchUpdateTask(item) {
+    fetch('/tasks', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(item)
-         })
+    })
         .then(res => res.json()
             .then(data => console.log(data))
         )
@@ -66,7 +63,7 @@ function createTaskElement(data) {
     // Create list of tasks received from the backend
     data.forEach((item) => {
         const li = document.createElement('li')
-        li.className="task-list-item";
+        li.className = "task-list-item";
 
         let cb = document.createElement('input');
         cb.type = "checkbox";
@@ -75,9 +72,9 @@ function createTaskElement(data) {
         cb.checked = item.completed;
 
         //
-        cb.addEventListener('change',(e)=> {
+        cb.addEventListener('change', (e) => {
             console.log(e)
-            item.completed=e.target.checked
+            item.completed = e.target.checked
             fetchUpdateTask(item)
         })
 
@@ -91,7 +88,7 @@ function createTaskElement(data) {
         });
 
         // li.innerText = item.task;
-        var label = document.createElement('label') 
+        var label = document.createElement('label')
         label.htmlFor = "todo_" + item.id;;
         label.appendChild(document.createTextNode(item.task));
 
