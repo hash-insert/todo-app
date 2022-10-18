@@ -34,13 +34,16 @@ function createTask(task,checkbox){
     mytask.save().then( res => console.log(res))
 }
 
-// createTask("Go shopping",true)
+//  createTask("watch netflix",false)
 
  async function getTasks(){
    const tasklist= await Task.find().sort({taskadded:1}).limit(2)
    console.log(tasklist)
 }
 getTasks()
+
+
+
 
 
 
