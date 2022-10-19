@@ -64,8 +64,24 @@ app.post("/tasks", (req, res) => {
   }
 });
 //DELETE request for the endpoint \tasks → To Remove a task
-//PUT request for the endpoint \tasks → To Update a task (when user checks the checkbox
+app.delete('/tasks',async (req,res)=> {
+const {task}= req.body
+    const tasklist = await Task.deleteOne({task});
 
+    res.send(tasklist);
+    
+})
+
+
+
+
+//PUT request for the endpoint \tasks → To Update a task (when user checks the checkbox)
+
+
+
+
+
+// localhost 
 port = 5000;
 app.listen(port, () => {
   console.log(`Listening on port,${port}`);
