@@ -34,16 +34,55 @@ function createTask(task,checkbox){
     mytask.save().then( res => console.log(res))
 }
 
-//  createTask("watch netflix",false)
+
+//  createTask("Eat Apples",false)
 
  async function getTasks(){
-   const tasklist= await Task.find().sort({taskadded:1}).limit(2)
-   console.log(tasklist)
+   const tasklist= await Task.find()
+  console.log(tasklist)
+  
 }
-getTasks()
+// getTasks()
+app.get('/',(req,res)=>{
+   res.send('Hello word')
+})
+
+// GET request for the endpoint \tasks → To Get the tasks
+
+app.get('/tasks',(req,res)=> {
+
+const showtasks= getTasks()
+
+res.send(showtasks)
 
 
+})
 
+
+//POST request for the endpoint \tasks → To Add a task
+
+app.post('/tasks',(req,res)=> {
+    const {task,checkbox}=req.body
+    try{
+if(task){
+    res.send('task already exist')  
+}
+
+createTask(task,checkbox)
+res.send('task added')
+    }
+    catch(err){
+console.log(err)
+res.send('error in adding task')
+    }
+})
+//DELETE request for the endpoint \tasks → To Remove a task
+//PUT request for the endpoint \tasks → To Update a task (when user checks the checkbox
+
+port=5000;
+app.listen(port,()=>{
+    console.log(`Listening on port,${port}`)
+})
 
 
 
