@@ -77,7 +77,13 @@ const {task}= req.body
 
 //PUT request for the endpoint \tasks → To Update a task (when user checks the checkbox)
 
+app.put('/tasks',async (req,res)=> {
+    const {task}= req.body
+    const tasklist = await Task.updateOne({"task":"Boil Eggs"},{$set:{"task":req.body.task}});
+    console.log(task)
 
+    res.send(tasklist); 
+})
 
 
 
